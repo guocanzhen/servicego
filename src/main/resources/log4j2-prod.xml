@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--monitorInterval：Log4j2能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<Configuration status="warn" monitorInterval="30">
+    <Appenders>
+        <!-- 控制台追加器 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5p][%d{yyyy-MM-dd HH:mm:ss}] [%t] [%c{-1}] - %m%n"/>
+        </Console>
+        <!-- fileName和filePattern如果其他项目要用到,需要拷贝,切记要调整,如果在同一服务器,会导致有多个项目共写一份日志 -->
+        <!-- info日志追加器 -->
+        <RollingFile name="RollingFileInfo" fileName="../logs/servicego/service-go.log"
+                     filePattern="../logs/servicego/$${date:yyyy-MM}/service-go-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出info及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%-5p][%d{yyyy-MM-dd HH:mm:ss:SSS}] [%t] [%l] - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+        <!-- error日志追加器 -->
+        <RollingFile name="RollingFileError" fileName="../logs/servicego/service-go-error.log"
+                     filePattern="../logs/servicego/$${date:yyyy-MM}/service-go-error-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出error及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileError"/>
+        </Root>
+    </Loggers>
+</Configuration>

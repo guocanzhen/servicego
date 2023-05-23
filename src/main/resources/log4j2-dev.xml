@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--monitorInterval：Log4j2能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<Configuration status="warn" monitorInterval="30">
+    <Appenders>
+        <!-- 添加一个控制台追加器 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5p][%d{yyyy-MM-dd HH:mm:ss}] [%t] [%c{-1}] - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+
+    </Loggers>
+</Configuration>
