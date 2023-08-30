@@ -1,6 +1,7 @@
 package com.mk.servicego.controller;
 
 import com.mk.servicego.domain.dto.TestDemoDto;
+import com.mk.servicego.domain.result.ContentResultForm;
 import com.mk.servicego.domain.result.ResultForm;
 import com.mk.servicego.service.TestDemoService;
 import io.swagger.annotations.Api;
@@ -71,8 +72,10 @@ public class TestDemoController {
         return null;
     }
 
+    @ApiOperation(value = "获取所有数据")
+    @GetMapping("list")
     public ResultForm list() {
-        return null;
+        return new ContentResultForm<>(true, service.list());
     }
 
 

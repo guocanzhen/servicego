@@ -85,3 +85,9 @@ ENGINE=InnoDB
 DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci
 COMMENT='产品明细';
+
+--2023/8/30 新增字段
+ALTER TABLE servicego.file ADD relative_url varchar(100) NULL COMMENT '文件相对路径';
+ALTER TABLE servicego.file ADD useful varchar(100) DEFAULT 1 NOT NULL COMMENT '逻辑删除：1-有效；0-无效';
+
+

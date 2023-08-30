@@ -28,4 +28,12 @@ public class File extends BaseBean{
     @ApiModelProperty(value = "文件路径")
     @TableField(value = "path")
     private String path;
+
+    @ApiModelProperty(value = "文件相对路径")
+    @TableField(value = "relative_url")
+    private String relativeUrl;
+
+    @ApiModelProperty(value = "逻辑删除：1-有效；0-无效")
+    @TableField(value = "useful")
+    private String useful="1";
 }

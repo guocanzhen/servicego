@@ -14,7 +14,7 @@ public class FileUtil {
 
 
     /**
-     *
+     * 文件本地存储
      * @param file
      * @param targetDirPath 存储MultipartFile文件的目标文件夹
      * @return 文件的存储的绝对路径
@@ -22,13 +22,14 @@ public class FileUtil {
     public static String saveMultipartFile(MultipartFile file, String targetDirPath){
 
         File toFile = null;
-        if (file.equals("") || file.getSize() <= 0) {
+        if (file.getSize() <= 0) {
             return null;
         } else {
 
             /*获取文件原名称*/
             String originalFilename = file.getOriginalFilename();
             /*获取文件格式*/
+            assert originalFilename != null;
             String fileFormat = originalFilename.substring(originalFilename.lastIndexOf("."));
 
             String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
@@ -54,14 +55,14 @@ public class FileUtil {
                 e.printStackTrace();
             }
 
-
-
             return absolutePath;
         }
 
     }
 
-    //获取流文件
+    /**
+     * 获取流文件
+     */
     private static void inputStreamToFile(InputStream ins, File file) {
         try {
             OutputStream os = new FileOutputStream(file);
